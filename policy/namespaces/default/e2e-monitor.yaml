@@ -1,0 +1,69 @@
+---
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: e2e-monitor
+spec:
+  version: 7.5.2
+  secureSettings:
+    - secretName: gcs-credentials
+  nodeSets:
+  - name: md-nodes3
+    count: 3
+    config:
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        initContainers:
+        - name: install-plugins
+          command:
+          - sh
+          - -c
+          - |
+            bin/elasticsearch-plugin install --batch repository-gcs
+        containers:
+        - name: elasticsearch
+          env:
+          - name: ES_JAVA_OPTS
+            value: -Xms8g -Xmx8g
+          resources:
+            requests:
+              memory: 16Gi
+              cpu: 6
+            limits:
+              memory: 16Gi
+              cpu: 6
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Gi
+        storageClassName: standard-wait
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+    tls:
+      selfSignedCertificate:
+        subjectAltNames:
+        - ip: 34.89.67.187
+---
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: e2e-monitor
+spec:
+  version: 7.5.2
+  count: 1
+  config:
+    kibana.autocompleteTimeout: 100000
+  elasticsearchRef:
+    name: e2e-monitor
+  http:
+    service:
+      spec:
+        type: LoadBalancer
