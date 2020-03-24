@@ -15,5 +15,8 @@ sync-repo-config:
 sync-status:
 	kubectl get all -n config-management-system
 
+sync-logs:
+	kubectl logs -n config-management-system  -l app=git-importer -c git-sync
+
 clean:
 	kubectl delete -f config.yml
