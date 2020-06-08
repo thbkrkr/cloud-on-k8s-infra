@@ -17,14 +17,16 @@ spec:
   serviceName: elastic-operator
   template:
     metadata:
+      annotations:
+        "co.elastic.logs/raw": "[{\"type\":\"container\",\"json.keys_under_root\":true,\"paths\":[\"/var/log/containers/*${data.kubernetes.container.id}.log\"],\"processors\":[{\"convert\":{\"mode\":\"rename\",\"ignore_missing\":true,\"fields\":[{\"from\":\"error\",\"to\":\"_error\"}]}},{\"convert\":{\"mode\":\"rename\",\"ignore_missing\":true,\"fields\":[{\"from\":\"_error\",\"to\":\"error.message\"}]}},{\"convert\":{\"mode\":\"rename\",\"ignore_missing\":true,\"fields\":[{\"from\":\"source\",\"to\":\"_source\"}]}},{\"convert\":{\"mode\":\"rename\",\"ignore_missing\":true,\"fields\":[{\"from\":\"_source\",\"to\":\"event.source\"}]}}]}]"
       labels:
         control-plane: elastic-operator
     spec:
       serviceAccountName: elastic-operator
       containers:
-      - image: docker.elastic.co/eck/eck-operator:1.0.1
+      - image: docker.elastic.co/eck/eck-operator:1.1.2
         name: manager
-        args: ["manager", "--operator-roles", "all", "--log-verbosity=0"]
+        args: ["manager", "--enable-webhook", "--log-verbosity=0"]
         env:
           - name: OPERATOR_NAMESPACE
             valueFrom:
@@ -32,17 +34,15 @@ spec:
                 fieldPath: metadata.namespace
           - name: WEBHOOK_SECRET
             value: elastic-webhook-server-cert
-          - name: WEBHOOK_PODS_LABEL
-            value: elastic-operator
           - name: OPERATOR_IMAGE
-            value: docker.elastic.co/eck/eck-operator:1.0.1
+            value: docker.elastic.co/eck/eck-operator:1.1.2
         resources:
           limits:
             cpu: 1
-            memory: 150Mi
+            memory: 512Mi
           requests:
             cpu: 100m
-            memory: 50Mi
+            memory: 150Mi
         ports:
         - containerPort: 9443
           name: webhook-server
