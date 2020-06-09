@@ -4,7 +4,7 @@ kind: Elasticsearch
 metadata:
   name: e2e-monitor
 spec:
-  version: 7.5.2
+  version: 7.7.1
   secureSettings:
     - secretName: gcs-credentials
   nodeSets:
@@ -57,7 +57,7 @@ kind: Kibana
 metadata:
   name: e2e-monitor
 spec:
-  version: 7.5.2
+  version: 7.7.1
   count: 1
   config:
     kibana.autocompleteTimeout: 100000
