@@ -65,7 +65,3 @@ spec:
     server.maxPayloadBytes: 10485760
   elasticsearchRef:
     name: e2e-monitor
-  http:
-    service:
-      spec:
-        type: LoadBalancer
