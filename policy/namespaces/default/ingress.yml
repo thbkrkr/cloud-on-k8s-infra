@@ -1,18 +1,3 @@
-apiVersion: cert-manager.io/v1alpha3
-kind: ClusterIssuer
-metadata:
-  name: e2e-monitor
-spec:
-  acme:
-    email: eck@elastic.co
-    privateKeySecretRef:
-      name: e2e-monitor-issuer-account-key
-    server: https://acme-v02.api.letsencrypt.org/directory
-    solvers:
-    - http01:
-        ingress:
-          class: nginx
----
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
