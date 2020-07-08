@@ -19,6 +19,7 @@ metadata:
   name: issuers.cert-manager.io
   annotations:
     cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
+    configmanagement.gke.io/managed: disabled
   labels:
     app: 'cert-manager'
     app.kubernetes.io/name: 'cert-manager'
@@ -1826,6 +1827,7 @@ metadata:
   name: orders.acme.cert-manager.io
   annotations:
     cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
+    configmanagement.gke.io/managed: disabled
   labels:
     app: 'cert-manager'
     app.kubernetes.io/name: 'cert-manager'
@@ -2066,6 +2068,7 @@ metadata:
   name: certificaterequests.cert-manager.io
   annotations:
     cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
+    configmanagement.gke.io/managed: disabled
   labels:
     app: 'cert-manager'
     app.kubernetes.io/name: 'cert-manager'
@@ -2277,6 +2280,7 @@ metadata:
   name: certificates.cert-manager.io
   annotations:
     cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
+    configmanagement.gke.io/managed: disabled
   labels:
     app: 'cert-manager'
     app.kubernetes.io/name: 'cert-manager'
@@ -3033,6 +3037,7 @@ metadata:
   name: challenges.acme.cert-manager.io
   annotations:
     cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
+    configmanagement.gke.io/managed: disabled
   labels:
     app: 'cert-manager'
     app.kubernetes.io/name: 'cert-manager'
@@ -4486,6 +4491,7 @@ metadata:
   name: clusterissuers.cert-manager.io
   annotations:
     cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
+    configmanagement.gke.io/managed: disabled
   labels:
     app: 'cert-manager'
     app.kubernetes.io/name: 'cert-manager'
