@@ -2,6 +2,7 @@ apiVersion: cert-manager.io/v1alpha3
 kind: ClusterIssuer
 metadata:
   name: e2e-monitor
+  namespace: default
 spec:
   acme:
     email: eck@elastic.co
