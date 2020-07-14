@@ -65,3 +65,16 @@ spec:
     server.maxPayloadBytes: 10485760
   elasticsearchRef:
     name: e2e-monitor
+---
+apiVersion: apm.k8s.elastic.co/v1
+kind: ApmServer
+metadata:
+  name: e2e-monitor
+spec:
+  version: 7.8.0
+  count: 1
+  elasticsearchRef:
+    name: "e2e-monitor"
+  # this allows ECK to configure automatically the Kibana endpoint as described in https://www.elastic.co/guide/en/apm/server/current/setup-kibana-endpoint.html
+  kibanaRef:
+    name: "e2e-monitor"
