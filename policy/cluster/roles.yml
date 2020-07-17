@@ -171,6 +171,8 @@ kind: ValidatingWebhookConfiguration
 metadata:
   creationTimestamp: null
   name: elastic-webhook.k8s.elastic.co
+  labels:
+    configmanagement.gke.io/managed: disabled
 webhooks:
 - clientConfig:
     caBundle: Cg==
