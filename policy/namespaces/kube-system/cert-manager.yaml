@@ -19,6 +19,8 @@ kind: Role
 metadata:
   name: cert-manager-cainjector:leaderelection
   namespace: kube-system
+  annotations:
+    configmanagement.gke.io/managed: disabled
   labels:
     app: cainjector
     app.kubernetes.io/name: cainjector
@@ -46,6 +48,8 @@ kind: Role
 metadata:
   name: cert-manager:leaderelection
   namespace: kube-system
+  annotations:
+    configmanagement.gke.io/managed: disabled
   labels:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
@@ -71,6 +75,8 @@ kind: RoleBinding
 metadata:
   name: cert-manager-cainjector:leaderelection
   namespace: kube-system
+  annotations:
+    configmanagement.gke.io/managed: disabled
   labels:
     app: cainjector
     app.kubernetes.io/name: cainjector
@@ -95,6 +101,8 @@ kind: RoleBinding
 metadata:
   name: cert-manager:leaderelection
   namespace: kube-system
+  annotations:
+    configmanagement.gke.io/managed: disabled
   labels:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
