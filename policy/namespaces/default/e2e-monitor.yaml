@@ -75,3 +75,7 @@ spec:
   count: 1
   elasticsearchRef:
     name: "e2e-monitor"
+  http:
+    service:
+      spec:
+        type: LoadBalancer
