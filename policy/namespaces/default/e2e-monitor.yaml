@@ -79,3 +79,7 @@ spec:
     service:
       spec:
         type: LoadBalancer
+    tls:
+      selfSignedCertificate:
+        subjectAltNames:
+        - ip: 34.105.251.83
