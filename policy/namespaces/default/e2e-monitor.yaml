@@ -43,6 +43,42 @@ spec:
           requests:
             storage: 500Gi
         storageClassName: standard-wait
+  - name: data
+    count: 3
+    config:
+      node.master: false
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        initContainers:
+        - name: install-plugins
+          command:
+          - sh
+          - -c
+          - |
+            bin/elasticsearch-plugin install --batch repository-gcs
+        containers:
+        - name: elasticsearch
+          env:
+          - name: ES_JAVA_OPTS
+            value: -Xms16g -Xmx16g
+          resources:
+            requests:
+              memory: 32Gi
+              cpu: 18
+            limits:
+              memory: 32Gi
+              cpu: 18
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Gi
+        storageClassName: standard-wait
   http:
     service:
       spec:
