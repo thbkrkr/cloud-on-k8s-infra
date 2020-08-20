@@ -20,6 +20,7 @@ rules:
   - secrets
   - services
   - configmaps
+  - serviceaccounts
   verbs:
   - get
   - list
@@ -33,6 +34,7 @@ rules:
   resources:
   - deployments
   - statefulsets
+  - daemonsets
   verbs:
   - get
   - list
@@ -98,10 +100,38 @@ rules:
   - patch
   - delete
 - apiGroups:
+  - enterprisesearch.k8s.elastic.co
+  resources:
+  - enterprisesearches
+  - enterprisesearches/status
+  - enterprisesearches/finalizers
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
   - admissionregistration.k8s.io
   resources:
   - mutatingwebhookconfigurations
   - validatingwebhookconfigurations
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - beat.k8s.elastic.co
+  resources:
+  - beats
+  - beats/status
+  - beats/finalizers
   verbs:
   - get
   - list
@@ -129,7 +159,7 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: elastic-operator-view
+  name: "elastic-operator-view"
   labels:
     rbac.authorization.k8s.io/aggregate-to-view: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
@@ -144,13 +174,19 @@ rules:
   - apiGroups: ["kibana.k8s.elastic.co"]
     resources: ["kibanas"]
     verbs: ["get", "list", "watch"]
+  - apiGroups: ["enterprisesearch.k8s.elastic.co"]
+    resources: ["enterprisesearches"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["beat.k8s.elastic.co"]
+    resources: ["beats"]
+    verbs: ["get", "list", "watch"]
 
 ---
 
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: elastic-operator-edit
+  name: "elastic-operator-edit"
   labels:
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
@@ -164,12 +200,17 @@ rules:
   - apiGroups: ["kibana.k8s.elastic.co"]
     resources: ["kibanas"]
     verbs: ["create", "delete", "deletecollection", "patch", "update"]
+  - apiGroups: ["enterprisesearch.k8s.elastic.co"]
+    resources: ["enterprisesearches"]
+    verbs: ["create", "delete", "deletecollection", "patch", "update"]
+  - apiGroups: ["beat.k8s.elastic.co"]
+    resources: ["beats"]
+    verbs: ["create", "delete", "deletecollection", "patch", "update"]
 
 ---
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 metadata:
-  creationTimestamp: null
   name: elastic-webhook.k8s.elastic.co
   annotations:
     configmanagement.gke.io/managed: disabled
@@ -210,6 +251,24 @@ webhooks:
     - UPDATE
     resources:
     - apmservers
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: elastic-webhook-server
+      namespace: elastic-system
+      path: /validate-beat-k8s-elastic-co-v1beta1-beat
+  failurePolicy: Ignore
+  name: elastic-beat-validation-v1beta1.k8s.elastic.co
+  rules:
+  - apiGroups:
+    - beat.k8s.elastic.co
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - beats
 - clientConfig:
     caBundle: Cg==
     service:
@@ -282,4 +341,3 @@ webhooks:
     - UPDATE
     resources:
     - kibanas
-
