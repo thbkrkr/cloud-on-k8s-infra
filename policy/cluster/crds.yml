@@ -4,6 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
+    configmanagement.gke.io/managed: disabled
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: 'elastic-operator'
@@ -458,6 +459,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
+    configmanagement.gke.io/managed: disabled
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: 'elastic-operator'
@@ -1128,6 +1130,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
+    configmanagement.gke.io/managed: disabled
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: 'elastic-operator'
@@ -1376,6 +1379,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
+    configmanagement.gke.io/managed: disabled
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: 'elastic-operator'
@@ -1700,6 +1704,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
+    configmanagement.gke.io/managed: disabled
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: 'elastic-operator'
@@ -3138,6 +3143,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
+    configmanagement.gke.io/managed: disabled
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: 'elastic-operator'
@@ -3752,6 +3758,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
+    configmanagement.gke.io/managed: disabled
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: 'elastic-operator'
