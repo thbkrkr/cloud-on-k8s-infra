@@ -21,7 +21,26 @@ spec:
           serviceName: e2e-monitor-kb-http
           servicePort: 5601
         path: /
+        pathType: Prefix
+  - host: es.eck.elastic.dev
+    http:
+      paths:
+      - backend:
+          serviceName: e2e-monitor-es-http
+          servicePort: 9200
+        path: /
+        pathType: Prefix
+  - host: apm.eck.elastic.dev
+    http:
+      paths:
+        - backend:
+            serviceName: e2e-monitor-apm-http
+            servicePort: 8200
+          path: /
+          pathType: Prefix
   tls:
   - hosts:
     - e2e.eck.elastic.dev
+    - es.eck.elastic.dev
+    - apm.eck.elastic.dev
     secretName: e2e-monitor-https-cert
