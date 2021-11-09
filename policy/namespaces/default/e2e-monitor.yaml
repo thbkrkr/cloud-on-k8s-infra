@@ -79,14 +79,6 @@ spec:
           requests:
             storage: 500Gi
         storageClassName: standard-wait
-  http:
-    service:
-      spec:
-        type: LoadBalancer
-    tls:
-      selfSignedCertificate:
-        subjectAltNames:
-        - ip: 34.89.67.187
 ---
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
@@ -111,11 +103,3 @@ spec:
   count: 1
   elasticsearchRef:
     name: "e2e-monitor"
-  http:
-    service:
-      spec:
-        type: LoadBalancer
-    tls:
-      selfSignedCertificate:
-        subjectAltNames:
-        - ip: 34.105.251.83
